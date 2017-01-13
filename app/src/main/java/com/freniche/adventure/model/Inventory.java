@@ -1,13 +1,14 @@
+
 package com.freniche.adventure.model;
 
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Inventory {
+public class Inventory implements Serializable {
 
     private LinkedList<Item> inventory = new LinkedList<>();
-
-    public Inventory() {
+    public Inventory(){
 
     }
 

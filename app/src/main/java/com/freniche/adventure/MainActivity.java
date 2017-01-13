@@ -78,8 +78,10 @@ public class MainActivity extends AppCompatActivity {
         dropButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currentRoom = currentRoom.getRoomNorth();
-                repaintScene();
+                Intent i = new Intent(MainActivity.this, DropItemActivity.class);
+                i.putExtra("KEY_INVENTORY", inventory);
+
+                startActivityForResult(i, 1);
 
             }
         });
