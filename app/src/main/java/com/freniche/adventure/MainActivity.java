@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -12,27 +13,85 @@ import com.freniche.adventure.model.Item;
 import com.freniche.adventure.model.MapGenerator;
 import com.freniche.adventure.model.Room;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
 
+    @BindView(R.id.activity_main_look_button)
+    ImageButton lookButton;
+
+    @BindView(R.id.activity_main_take)
+    Button takeButton;
+
+    @BindView(R.id.activity_main_drop)
+    Button dropButton;
+
+    @BindView(R.id.activity_main_help)
     ImageButton helpButton;
+
+    @BindView(R.id.activity_main_scene_text)
     TextView mainText;
+
+    @BindView(R.id.activity_main_north_button)
     ImageButton northButton;
+
+    @BindView(R.id.activity_main_south_button)
     ImageButton southButton;
+
+    @BindView(R.id.activity_main_east_button)
     ImageButton eastButton;
+
+    @BindView(R.id.activity_main_west_button)
     ImageButton westButton;
+
+    @BindView(R.id.activity_main_inventory)
+    Button inventoryButton;
+
+   Inventory inventory = new Inventory();
+    Room currentRoom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        mainText = (TextView) findViewById(R.id.activity_main_scene_text); // 2
-        helpButton = (ImageButton) findViewById(R.id.activity_main_help);
-        northButton = (ImageButton) findViewById(R.id.activity_main_north_button);
-        southButton = (ImageButton) findViewById(R.id.activity_main_south_button);
-        eastButton = (ImageButton) findViewById(R.id.activity_main_east_button);
-        westButton = (ImageButton) findViewById(R.id.activity_main_west_button);
+        //inventory button
+        inventoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               mainText.setText(inventory.print());
 
+            }
+        });
+        //look button
+        lookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainText.setText(currentRoom.getDescription() + "\n" + currentRoom.getRoomItems());
+
+
+            }
+        });
+        //drop button
+        dropButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentRoom = currentRoom.getRoomNorth();
+                repaintScene();
+
+            }
+        });
+        //take button
+        takeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentRoom = currentRoom.getRoomNorth();
+                repaintScene();
+
+            }
+        });
         // north button
         northButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,8 +142,7 @@ public class MainActivity extends AppCompatActivity {
         repaintScene();
     }
 
-    Inventory inventory = new Inventory();
-    Room currentRoom;
+
 
     private void initGame() {
         Item sword = new Item("Sword", "A sharp blade");
