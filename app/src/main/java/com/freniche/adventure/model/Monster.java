@@ -1,24 +1,13 @@
 package com.freniche.adventure.model;
 
-
 import java.io.Serializable;
 
-public class Item implements Serializable {
+public class Monster implements Serializable {
+
     private String name;
     private String description;
+    private String imageUrl;
 
-    public Item() {
-    }
-
-    public Item(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
-    @Override
-    public String toString() {
-        return "[ " + getName() + " " + getDescription() + " ]";
-    }
 
     public String getName() {
         return name;
@@ -34,5 +23,13 @@ public class Item implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

@@ -2,37 +2,109 @@ package com.freniche.adventure;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.freniche.adventure.model.Inventory;
 import com.freniche.adventure.model.Item;
 import com.freniche.adventure.model.MapGenerator;
 import com.freniche.adventure.model.Room;
+import com.freniche.adventure.util.Constants;
+import com.squareup.picasso.Picasso;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
+    @BindView(R.id.activity_main_look_button)
+    ImageButton lookButton;
+
+    @BindView(R.id.activity_main_take)
+    Button takeButton;
+
+    @BindView(R.id.activity_main_drop)
+    Button dropButton;
+
+    @BindView(R.id.activity_main_help)
     ImageButton helpButton;
+
+    @BindView(R.id.activity_main_scene_text)
     TextView mainText;
+
+    @BindView(R.id.activity_main_north_button)
     ImageButton northButton;
+
+    @BindView(R.id.activity_main_south_button)
     ImageButton southButton;
+
+    @BindView(R.id.activity_main_east_button)
     ImageButton eastButton;
+
+    @BindView(R.id.activity_main_west_button)
     ImageButton westButton;
+
+    @BindView(R.id.activity_main_inventory)
+    Button inventoryButton;
+
+    @BindView(R.id.activity_main_scene_image)
+    ImageView sceneImage;
+
+   Inventory inventory = new Inventory();
+    Room currentRoom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        mainText = (TextView) findViewById(R.id.activity_main_scene_text); // 2
-        helpButton = (ImageButton) findViewById(R.id.activity_main_help);
-        northButton = (ImageButton) findViewById(R.id.activity_main_north_button);
-        southButton = (ImageButton) findViewById(R.id.activity_main_south_button);
-        eastButton = (ImageButton) findViewById(R.id.activity_main_east_button);
-        westButton = (ImageButton) findViewById(R.id.activity_main_west_button);
+        Picasso.with(this).setIndicatorsEnabled(true);
+        Picasso.with(this).setLoggingEnabled(true);
 
+        //inventory button
+        inventoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               mainText.setText(inventory.print());
+
+            }
+        });
+        //look button
+        lookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainText.setText(currentRoom.getDescription() + "\n" + currentRoom.getRoomItems());
+
+
+            }
+        });
+        //drop button
+        dropButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, DropItemActivity.class);
+                i.putExtra(Constants.KEY_INTENT_INVENTORY, inventory);
+
+                startActivityForResult(i, 1);
+
+            }
+        });
+        //take button
+        takeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, DropItemActivity.class);
+                i.putExtra(Constants.KEY_INTENT_TAKE_ITEM_FROM_ROOM, currentRoom);
+
+                startActivityForResult(i, 2);
+            }
+        });
         // north button
         northButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,8 +155,7 @@ public class MainActivity extends AppCompatActivity {
         repaintScene();
     }
 
-    Inventory inventory = new Inventory();
-    Room currentRoom;
+
 
     private void initGame() {
         Item sword = new Item("Sword", "A sharp blade");
@@ -95,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
         inventory.add(pieceOfPaper);
         inventory.add(rubberChicken);
 
-        MapGenerator.generate();
+        MapGenerator.generate(this);
 
         currentRoom = MapGenerator.initialRoom;
     }
@@ -103,6 +174,8 @@ public class MainActivity extends AppCompatActivity {
     private void repaintScene() {
         // write room description on screen
         mainText.setText(currentRoom.getDescription());
+
+        Picasso.with(this).load(currentRoom.getImageUrl()).into(sceneImage);
 
         if (currentRoom.getRoomNorth() != null) {
             // there's a room pointing north
@@ -135,23 +208,44 @@ public class MainActivity extends AppCompatActivity {
             // no room, I'm sad
             westButton.setVisibility(View.INVISIBLE);
         }
+        if (currentRoom.getMonster() != null) {
+            Intent i = new Intent(MainActivity.this, FightMonsterActivity.class);
+            i.putExtra("monster", currentRoom.getMonster());
+            startActivity(i);
+        }
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == 1){   //DROP
+            if (resultCode == RESULT_OK) {
+                int itemPosition = data.getIntExtra(Constants.KEY_INTENT_DROP_ITEM_POSITION, -1);
 
+                Item item = inventory.getItem(itemPosition);
+                currentRoom.getItems().add(item);
+                inventory.deleteItem(itemPosition);
 
+                Snackbar.make(mainText, getString(R.string.dropped_item_text) + item.getName(), Snackbar.LENGTH_LONG)
+                        .setAction("Action", null)
+                        .show();
+            }
+        } else if (requestCode == 2) {   //TAKE
+            if (resultCode == RESULT_OK) {
+                int itemPosition = data.getIntExtra(Constants.KEY_INTENT_DROP_ITEM_POSITION, -1);
 
+                Item item = currentRoom.getItems().get(itemPosition);
+                inventory.add(item);
+                currentRoom.getItems().remove(item);
 
-
-
-
-
-
-
-
-
-
+                Snackbar.make(mainText, "Taken " + item.getName(), Snackbar.LENGTH_LONG)
+                        .setAction("Action", null)
+                        .show();
+            }
+        }
+    }
 }
 
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="room_desc1">[Room 1] Te encuentras en un aula con las contraventanas semicerradas. Olor a ordenador encendido y cerebro frito impregna tus sentidos.</string>
+    <string name="room_img1">http://img.emol.com/2010/08/13/File_201081314645.jpg</string>
+
+    <string name="room_desc2">[Room 2] Te deslumbra la luz del Sol que se filtra por las ventanas del pasillo. Sientes un escalofrío al ver a un grajo arrastrándose.</string>
+    <string name="room_img2">http://1.bp.blogspot.com/-EENRNCYiXPg/Ugv05QMsPEI/AAAAAAAABx0/ZDxaUPmh9q4/w1200-h630-p-nu/mairena+virgen.jpg</string>
+
+    <string name="room_desc3">[Room 3] Hay una barra de bar con tapicería roja pasada de moda. Huele a tabaco usado y lágrimas de tango.</string>
+    <string name="room_img3">https://crisiscreativa.files.wordpress.com/2012/08/el-juego-de-hora-de-aventuras-incluye-elementos-de-clasicos-estilo-zelda-ii_noticia_main_landscape.jpg</string>
+
+    <string name="room_desc4">[Room 4] El baño mugriento, con moho intergaláctico, un fuerto olor agrio y el suelo pegajoso. Espejos empañados solo dejan ver las sombras.</string>
+    <string name="room_img4">http://3.bp.blogspot.com/-71mJgIH1jdA/VPhsQkkH-XI/AAAAAAAAHyw/em7dpk2GOVY/s1600/sonar-cuarto-bano-sucio.jpg</string>
+</resources>

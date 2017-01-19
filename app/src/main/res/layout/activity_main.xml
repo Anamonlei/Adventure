@@ -10,27 +10,20 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.freniche.adventure.MainActivity"
-    android:background="@color/colorPrimaryDark"
+    android:background="#FFFFFF"
 
     >
-
-    <ImageView
-        android:id="@+id/activity_main_scene_image"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        tools:src="@android:drawable/star_big_on"
-        />
 
     <TextView
         android:id="@+id/activity_main_scene_text"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:textSize="26sp"
+        android:textSize="13sp"
         android:textStyle="italic"
         tools:text="Hola hola"
-        android:background="@android:color/darker_gray"
+        android:background="#cfd8dc"
 
-        android:layout_below="@id/activity_main_scene_image"
+        android:layout_below="@+id/activity_main_scene_image"
         />
 
 
@@ -47,7 +40,7 @@
 
 
         android:layout_below="@+id/activity_main_north_button"
-
+        android:scaleType="fitCenter"
         />
 
     <ImageButton
@@ -60,6 +53,7 @@
         android:background="@android:color/transparent"
 
         android:layout_toRightOf="@id/activity_main_west_button"
+        android:scaleType="fitCenter"
 
         />
 
@@ -76,6 +70,7 @@
 
         android:layout_below="@id/activity_main_north_button"
         android:layout_toRightOf="@+id/activity_main_look_button"
+        android:scaleType="fitCenter"
 
         />
 
@@ -91,7 +86,7 @@
 
         android:layout_below="@+id/activity_main_look_button"
         android:layout_toRightOf="@id/activity_main_west_button"
-
+        android:scaleType="fitCenter"
         />
 
     <ImageButton
@@ -106,6 +101,7 @@
 
         android:layout_below="@id/activity_main_north_button"
         android:layout_toRightOf="@id/activity_main_west_button"
+        android:scaleType="fitCenter"
         />
 
 
@@ -115,42 +111,57 @@
 
         android:textAllCaps="false"
         android:textStyle="italic"
-        android:background="#F00317"
+        android:background="#ce93d8"
 
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_below="@id/activity_main_scene_text"
         android:layout_alignParentRight="true"
 
-        />
+        android:layout_above="@+id/activity_main_east_button"
+        android:layout_alignLeft="@+id/activity_main_take"
+        android:layout_alignStart="@+id/activity_main_take" />
 
     <Button
         android:id="@+id/activity_main_take"
+        android:text="TAKE"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_below="@id/activity_main_inventory"
         android:layout_alignParentRight="true"
-        android:background="@color/colorAccent"
+        android:background="#4caf50"
         />
 
     <Button
         android:id="@+id/activity_main_drop"
+        android:text="DROP"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_below="@id/activity_main_take"
         android:layout_alignParentRight="true"
-        android:background="@color/colorAccent"
-        />
+        android:background="#f44336"/>
 
     <ImageButton
         android:id="@+id/activity_main_help"
+
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:src="@android:drawable/ic_menu_help"
 
         android:layout_below="@id/activity_main_drop"
         android:layout_alignParentRight="true"
-        android:background="@color/colorAccent"
+        android:background="#29b6f6"
+        />
+
+    <ImageView
+        android:id="@+id/activity_main_scene_image"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        tools:src="@android:drawable/star_big_on"
+        android:scaleType="fitCenter"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/activity_main_scene_text"
+        android:layout_alignStart="@+id/activity_main_scene_text"
         />
 
 </RelativeLayout>
