@@ -21,7 +21,7 @@
         android:textSize="13sp"
         android:textStyle="italic"
         tools:text="Hola hola"
-        android:background="@android:color/darker_gray"
+        android:background="#cfd8dc"
 
         android:layout_below="@+id/activity_main_scene_image"
         />
@@ -111,14 +111,16 @@
 
         android:textAllCaps="false"
         android:textStyle="italic"
-        android:background="#FF1"
+        android:background="#ce93d8"
 
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_below="@id/activity_main_scene_text"
         android:layout_alignParentRight="true"
 
-        />
+        android:layout_above="@+id/activity_main_east_button"
+        android:layout_alignLeft="@+id/activity_main_take"
+        android:layout_alignStart="@+id/activity_main_take" />
 
     <Button
         android:id="@+id/activity_main_take"
@@ -127,7 +129,7 @@
         android:layout_height="50dp"
         android:layout_below="@id/activity_main_inventory"
         android:layout_alignParentRight="true"
-        android:background="#FF1"
+        android:background="#4caf50"
         />
 
     <Button
@@ -137,7 +139,7 @@
         android:layout_height="50dp"
         android:layout_below="@id/activity_main_take"
         android:layout_alignParentRight="true"
-        android:background="#FF1"/>
+        android:background="#f44336"/>
 
     <ImageButton
         android:id="@+id/activity_main_help"
@@ -148,7 +150,7 @@
 
         android:layout_below="@id/activity_main_drop"
         android:layout_alignParentRight="true"
-        android:background="#FF2222"
+        android:background="#29b6f6"
         />
 
     <ImageView

@@ -3,13 +3,25 @@ package com.freniche.adventure.model;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Inventory implements Serializable {
 
     private LinkedList<Item> inventory = new LinkedList<>();
     public Inventory(){
 
+    }
+
+    public List<String> getItemNames() {
+        List<String> names = new ArrayList<>();
+
+        for (Item item: inventory) {
+            names.add(item.getName());
+        }
+
+        return names;
     }
 
     public String print() {
@@ -22,5 +34,13 @@ public class Inventory implements Serializable {
 
     public void add(Item item) {
         this.inventory.add(item);
+    }
+
+    public Item getItem(int itemPosition) {
+        return inventory.get(itemPosition);
+    }
+
+    public void deleteItem(int itemPosition) {            //borra el elemento del inventario porque lo he soltado en la room
+        inventory.remove(itemPosition);
     }
 }
