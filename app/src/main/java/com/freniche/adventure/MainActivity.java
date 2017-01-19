@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.freniche.adventure.model.Inventory;
 import com.freniche.adventure.model.Item;
 import com.freniche.adventure.model.MapGenerator;
+import com.freniche.adventure.model.Player;
 import com.freniche.adventure.model.Room;
 import com.freniche.adventure.util.Constants;
 import com.squareup.picasso.Picasso;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView sceneImage;
 
    Inventory inventory = new Inventory();
+    Player player = new Player();
     Room currentRoom;
 
     @Override
@@ -211,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
         if (currentRoom.getMonster() != null) {
             Intent i = new Intent(MainActivity.this, FightMonsterActivity.class);
             i.putExtra("monster", currentRoom.getMonster());
+            i.putExtra("player", player);
             startActivity(i);
         }
 
